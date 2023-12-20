@@ -6,11 +6,14 @@ import cors from 'cors'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 import connectDB from './database/connectDB.js'
 import { logger } from './utils/logger.js'
+import { configCloud } from './utils/uploadImage.js'
+import { verifyToken } from './middleware/jwtMiddleware.js'
 const app = express()
 dotenv.config()
 const PORT = process.env.PORT || 5000
 
 connectDB()
+configCloud()
 
 app.use(
   cors({
@@ -22,7 +25,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use("/api/v1/auth", v1authRouter)
-app.use("/api/v1/post", v1postRouter)
+app.use("/api/v1/posts", verifyToken, v1postRouter)
 
 app.use(notFound)
 app.use(errorHandler)

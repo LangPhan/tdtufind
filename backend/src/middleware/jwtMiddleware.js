@@ -5,7 +5,7 @@ dotenv.config()
 const SECRET_KEY = process.env.SECRET_KEY
 
 const generateAccessToken = (data) => {
-  return jwt.sign(data, SECRET_KEY, { expiresIn: "1d" })
+  return jwt.sign(data, SECRET_KEY, { expiresIn: "10d" })
 }
 
 const verifyToken = (req, res, next) => {

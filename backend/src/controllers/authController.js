@@ -4,7 +4,7 @@ import { logger } from "../utils/logger.js";
 import verifyGoogleToken from "../utils/verifyGoogleAuth.js";
 
 
-const getAuth = async (req, res) => {
+const postAuth = async (req, res) => {
   try {
     if (req.body.credential) {
       const verificationRes = await verifyGoogleToken(req.body.credential);
@@ -41,12 +41,17 @@ const getAuth = async (req, res) => {
           token
         },
       })
+    } else {
+      logger.error("Credential not found")
+      return res.status(401).json({
+        message: "Credential not found"
+      })
     }
   } catch (error) {
     logger.error(error)
-    res.status(500).json({
+    return res.status(500).json({
       message: error
     })
   }
 }
-export { getAuth }
+export { postAuth }

@@ -1,9 +1,9 @@
 import express from 'express'
-import { getAuth } from '../../controllers/authController.js';
+import { postAuth } from '../../controllers/authController.js';
 import { isAdmin, verifyToken } from '../../middleware/jwtMiddleware.js';
 const router = express.Router()
 
-router.post("/", getAuth)
+router.post("/", postAuth)
 router.get("/", verifyToken, (req, res) => {
   res.json({ message: 'Protected Route' })
 })
