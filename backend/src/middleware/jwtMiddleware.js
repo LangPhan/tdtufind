@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
+import { logger } from '../utils/logger.js'
 dotenv.config()
 
 const SECRET_KEY = process.env.SECRET_KEY
@@ -18,6 +19,7 @@ const verifyToken = (req, res, next) => {
 
   jwt.verify(token, SECRET_KEY, (err, decoded) => {
     if (err) {
+      logger.error("Error verify token: ", err)
       return res.status(401).json({ message: 'Failed to authenticate token' })
     }
     req.decoded = decoded

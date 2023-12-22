@@ -5,13 +5,16 @@ export const logger = winston.createLogger({
   format: winston.format.combine(
     winston.format.timestamp(
       {
-        format: 'YYYY-MM-DD HH:mm:ss'
+        format: 'HH:mm:ss DD-MM-YYYY'
       }
     ),
     winston.format.json()
   ),
   transports: [
     new winston.transports.Console(),
-    new winston.transports.File({ filename: 'server.log' })
+    new winston.transports.File({
+      filename: 'server.log',
+      level: 'debug'
+    })
   ]
 })

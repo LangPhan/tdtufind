@@ -29,6 +29,7 @@ const uploadImagesToCloud = async (files) => {
     return results.map(result => result.secure_url);
   } catch (error) {
     logger.error("Error upload image: ", error)
+    throw new Error(error)
   } finally {
     //Delete multer file after upload images to cloud
     for (const file of files) {

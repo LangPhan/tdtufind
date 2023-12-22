@@ -16,22 +16,20 @@ const postAuth = async (req, res) => {
       }
       const profile = verificationRes?.payload
       const email = profile.email
-      let roles = []
       //Create new user if first time login
       const userExists = await fineOneUser(email)
       if (!userExists) {
         const user = await createNewUser(profile);
         if (user) {
           logger.info(`New user created: ${user.email}`)
-          roles = user.roles
+          userExists = { ...user }
         }
-      } else {
-        roles = userExists.roles
       }
       //Generate token
       const token = generateAccessToken({
-        email: email,
-        roles: roles
+        id: userExists._id,
+        email: userExists.email,
+        roles: userExists.roles
       });
       logger.info(`New user login: ${email}`)
       res.status(201).json({

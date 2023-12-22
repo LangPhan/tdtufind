@@ -33,8 +33,9 @@ const getManyPostsWithCustom = async (req, res) => {
 
 const postNewPost = async (req, res) => {
   const postData = req.body
+  const currentUserId = req.decoded.id;
   let images = [];
-  if (!postData.author || !postData.content || !postData.timeLost || !postData.placement || !postData.type) {
+  if (!postData.content || !postData.timeLost || !postData.placement || !postData.type) {
     logger.warn("Missing required field when creating new post")
     return res.status(400).json({ message: "Please provide full required field" })
   }
@@ -46,7 +47,7 @@ const postNewPost = async (req, res) => {
     images = [...imagesRes]
   }
   try {
-    const newPost = await postService.createNewPost({ ...postData, images })
+    const newPost = await postService.createNewPost({ ...postData, author: currentUserId, images })
     logger.info(`New post was created ${newPost._id}`)
     return res.status(201).json({
       message: "Create new post successfully",
@@ -63,8 +64,12 @@ const postNewPost = async (req, res) => {
 const patchOnePost = async (req, res) => {
   const postId = req.params.id
   const postData = req.body
-
+  const currentUserId = req.decoded.id
   try {
+    const currentPost = await postService.getOnePost(postId)
+    if (currentPost._id !== currentUserId) {
+      return res.status(403).json({ message: "Current user can not edit this post" })
+    }
     const updatePost = await postService.updateOnePost(postId, postData)
     if (updatePost) {
       return res.status(200).json({ message: "Update post successfully", data: updatePost })
