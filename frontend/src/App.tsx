@@ -1,52 +1,33 @@
 import {
-  GoogleLogin,
-  GoogleOAuthProvider,
-} from "@react-oauth/google";
-import "./App.css";
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import ErrorPage from "./pages/ErrorPage";
+import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
 
 function App() {
-  return (
-    <GoogleOAuthProvider
-      clientId={
-        import.meta.env.VITE_CLIENT_ID
-      }
-    >
-      <GoogleLogin
-        width={1000}
-        shape="pill"
-        theme="filled_blue"
-        text="continue_with"
-        locale="vi"
-        onSuccess={(res) => {
-          fetch(
-            "http://localhost:3000/api/v1/auth",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type":
-                  "application/json",
-              },
-              body: JSON.stringify({
-                credential:
-                  res.credential,
-              }),
-            }
+  const token =
+    localStorage.getItem("token");
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route
+        path="/"
+        element={
+          token === "123" ? (
+            <HomePage />
+          ) : (
+            <LoginPage />
           )
-            .then((res) => {
-              return res.json();
-            })
-            .then((data) => {
-              console.log(data);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }}
-        onError={() => {
-          console.log("ERROR");
-        }}
-      />
-    </GoogleOAuthProvider>
+        }
+        errorElement={<ErrorPage />}
+      ></Route>
+    )
+  );
+  return (
+    <RouterProvider router={router} />
   );
 }
 
