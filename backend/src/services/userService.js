@@ -1,7 +1,7 @@
 import User from "../models/userModel.js"
 
 
-const fineOneUser = async (email) => {
+const findOneUser = async (email) => {
   const user = await User.findOne({ email })
   return user
 }
@@ -9,11 +9,12 @@ const fineOneUser = async (email) => {
 const createNewUser = async (userData) => {
   const user = await User.create({
     fullName: userData.name,
-    email: userData.email
+    email: userData.email,
+    avatar: userData.picture
   })
   return user
 }
 
-export { fineOneUser, createNewUser }
+export { findOneUser, createNewUser }
 
 

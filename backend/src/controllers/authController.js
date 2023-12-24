@@ -1,5 +1,5 @@
 import { generateAccessToken } from "../middleware/jwtMiddleware.js";
-import { createNewUser, fineOneUser } from "../services/userService.js";
+import { createNewUser, findOneUser } from "../services/userService.js";
 import { logger } from "../utils/logger.js";
 import verifyGoogleToken from "../utils/verifyGoogleAuth.js";
 
@@ -17,15 +17,18 @@ const postAuth = async (req, res) => {
       const profile = verificationRes?.payload
       const email = profile.email
       //Create new user if first time login
-      const userExists = await fineOneUser(email)
+      let userExists = await findOneUser(email)
       if (!userExists) {
         const user = await createNewUser(profile);
         if (user) {
+          console.log(user);
           logger.info(`New user created: ${user.email}`)
-          userExists = { ...user }
+          userExists = user
         }
       }
+
       //Generate token
+      console.log(userExists.email);
       const token = generateAccessToken({
         id: userExists._id,
         email: userExists.email,
@@ -34,7 +37,7 @@ const postAuth = async (req, res) => {
       logger.info(`New user login: ${email}`)
       res.status(201).json({
         message: "Login Successfully",
-        user: {
+        data: {
           ...profile,
           token
         },
@@ -46,9 +49,9 @@ const postAuth = async (req, res) => {
       })
     }
   } catch (error) {
-    logger.error(error)
+    logger.error(error.message)
     return res.status(500).json({
-      message: error
+      message: error.message
     })
   }
 }

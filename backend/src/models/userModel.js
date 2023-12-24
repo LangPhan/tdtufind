@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const userSchema = mongoose.Schema(
   {
@@ -11,10 +11,11 @@ const userSchema = mongoose.Schema(
       required: true,
       unique: true
     },
+    avatar: String,
     roles: {
       type: [String],
       default: ['USER']
-    }
+    },
   },
   {
     timestamps: true,

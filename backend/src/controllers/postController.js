@@ -17,8 +17,10 @@ const getOnePost = async (req, res) => {
 const getManyPostsWithCustom = async (req, res) => {
   const { query, sortBy, orderBy, page, pageSize } = req.query
   try {
-    let sortOrder = 0;
-    orderBy && orderBy === "DESC" ? sortOrder = -1 : sortOrder = 1
+    let sortOrder = -1;
+    if (orderBy) {
+      orderBy === "DESC" ? sortOrder : sortOrder = 1
+    }
     const posts = await postService.getManyPostFilterAndSort(query, sortBy, page, pageSize, sortOrder)
     if (!posts) {
       logger.warn("Not found any post match")
@@ -67,7 +69,8 @@ const patchOnePost = async (req, res) => {
   const currentUserId = req.decoded.id
   try {
     const currentPost = await postService.getOnePost(postId)
-    if (currentPost._id !== currentUserId) {
+    if (currentPost.author !== currentUserId) {
+      logger.debug(`Current user: ${currentUserId} \nAuthor: ${currentPost.author}`)
       return res.status(403).json({ message: "Current user can not edit this post" })
     }
     const updatePost = await postService.updateOnePost(postId, postData)

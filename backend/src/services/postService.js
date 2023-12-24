@@ -4,14 +4,17 @@ import { logger } from "../utils/logger.js";
 
 const getOnePost = async (id) => {
   try {
-    const post = await Post.findById(id);
+    const post = await Post.findById(id).populate({
+      path: 'author',
+      select: '_id fullName email'
+    });
     return post;
   } catch (error) {
-    logger.debug("getOnePost")
+    logger.debug("getOnePost: ", error)
   }
 }
 
-const getManyPostFilterAndSort = async (query, sortBy, page, pageSize, sortOrder = 1) => {
+const getManyPostFilterAndSort = async (query, sortBy = 'createdAt', page, pageSize, sortOrder) => {
   const pageNumber = parseInt(page, 10) || 1
   const size = parseInt(pageSize, 10) || 10
   const skip = (pageNumber - 1) * size
@@ -29,7 +32,10 @@ const getManyPostFilterAndSort = async (query, sortBy, page, pageSize, sortOrder
   }
 
   try {
-    const posts = await Post.find(filter).sort(sort).skip(skip).limit(size)
+    const posts = await Post.find(filter).sort(sort).skip(skip).limit(size).populate({
+      path: 'author',
+      select: '_id fullName email'
+    });
     const totalPosts = await Post.countDocuments(filter)
     return { posts, totalPosts }
   } catch (error) {

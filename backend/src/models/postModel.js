@@ -1,8 +1,10 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
+
 
 const postSchema = mongoose.Schema({
   author: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true
   },
   content: {
