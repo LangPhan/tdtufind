@@ -5,25 +5,27 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage";
+import HomePage from "./pages/(logged-in)/HomePage";
+import RootPage from "./pages/RootPage";
 import LoginPage from "./pages/LoginPage";
-import HomePage from "./pages/HomePage";
 
 function App() {
-  const token =
-    localStorage.getItem("token");
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route
         path="/"
-        element={
-          token === "123" ? (
-            <HomePage />
-          ) : (
-            <LoginPage />
-          )
-        }
+        element={<RootPage />}
         errorElement={<ErrorPage />}
-      ></Route>
+      >
+        <Route
+          path="/login"
+          element={<LoginPage />}
+        />
+        <Route
+          path="/"
+          element={<HomePage />}
+        />
+      </Route>
     )
   );
   return (

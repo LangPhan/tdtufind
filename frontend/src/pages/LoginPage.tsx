@@ -3,8 +3,14 @@ import {
   GoogleOAuthProvider,
 } from "@react-oauth/google";
 import Logo from "../assets/logo.svg";
+import useStore from "../hooks/useStore";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+  const login = useStore(
+    (state) => state.login
+  );
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col items-center min-h-screen">
       <img
@@ -23,31 +29,9 @@ export default function LoginPage() {
           theme="filled_blue"
           text="continue_with"
           locale="vi"
-          onSuccess={(res) => {
-            fetch(
-              "http://localhost:3000/api/v1/auth",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type":
-                    "application/json",
-                },
-                body: JSON.stringify({
-                  credential:
-                    res.credential,
-                }),
-              }
-            )
-              .then((res) => {
-                return res.json();
-              })
-              .then((data) => {
-                console.log(data);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          }}
+          onSuccess={(res) =>
+            login(res, navigate)
+          }
           onError={() => {
             console.log("ERROR");
           }}
