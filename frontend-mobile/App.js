@@ -23,6 +23,9 @@ import Setting from './src/screens/settings/Setting';
 
 const Stack = createNativeStackNavigator();
 
+
+
+
 export default function App() {
   return (
     <NavigationContainer>
