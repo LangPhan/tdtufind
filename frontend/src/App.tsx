@@ -8,6 +8,8 @@ import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/(logged-in)/HomePage";
 import RootPage from "./pages/RootPage";
 import LoginPage from "./pages/LoginPage";
+import RequireAuth from "./pages/provider/RequireAuth";
+import AdminPage from "./pages/(logged-in)/AdminPage";
 
 function App() {
   const router = createBrowserRouter(
@@ -23,7 +25,19 @@ function App() {
         />
         <Route
           path="/"
-          element={<HomePage />}
+          element={
+            <RequireAuth role="USER">
+              <HomePage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <RequireAuth role="ADMIN">
+              <AdminPage />
+            </RequireAuth>
+          }
         />
       </Route>
     )

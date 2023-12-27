@@ -4,13 +4,23 @@ import {
 } from "@react-oauth/google";
 import Logo from "../assets/logo.svg";
 import useStore from "../hooks/useStore";
-import { useNavigate } from "react-router-dom";
+import {
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 
 export default function LoginPage() {
-  const login = useStore(
-    (state) => state.login
+  const { login } = useStore(
+    (state) => state
   );
   const navigate = useNavigate();
+  const token =
+    localStorage.getItem("token");
+
+  if (token) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div className="flex flex-col items-center min-h-screen">
       <img
@@ -29,8 +39,8 @@ export default function LoginPage() {
           theme="filled_blue"
           text="continue_with"
           locale="vi"
-          onSuccess={(res) =>
-            login(res, navigate)
+          onSuccess={async (res) =>
+            await login(res, navigate)
           }
           onError={() => {
             console.log("ERROR");

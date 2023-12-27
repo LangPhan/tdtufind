@@ -28,11 +28,12 @@ const postAuth = async (req, res) => {
       }
 
       //Generate token
-      console.log(userExists.email);
       const token = generateAccessToken({
         id: userExists._id,
         email: userExists.email,
-        roles: userExists.roles
+        fullName: userExists.fullName,
+        roles: userExists.roles,
+        avatar: userExists?.avatar,
       });
       logger.info(`New user login: ${email}`)
       res.status(201).json({
