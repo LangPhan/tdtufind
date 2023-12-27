@@ -42,6 +42,7 @@ const authSlice: StateCreator<AuthInterface> = (set, get) => ({
       set({ isAuth: true, user: { id: info.data?.id, email: info.data?.email, avatar: info.data?.avatar, fullName: info.data?.fullName, roles: info.data.roles } });
     } catch (err) {
       console.log(err);
+      get().removeToken(navigate)
     }
   },
   removeToken: (navigate) => {
@@ -53,7 +54,7 @@ const authSlice: StateCreator<AuthInterface> = (set, get) => ({
   },
   logout: (navigate) => {
     get().removeToken(navigate)
-    toast.success('Đăng xuất thành công');
+    toast.warn('Đăng xuất thành công');
   }
 });
 
