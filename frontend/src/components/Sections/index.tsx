@@ -1,8 +1,18 @@
+import LeftSide from './LeftSide';
+import MainSide from './MainSide';
+import Navigation from './Navigation';
+import RightSide from './RightSide';
+
 const Section = () => {
   return (
-    <section className="min-h-section bg-bgColor">
-      Section
-    </section>
+    <>
+      <Navigation />
+      <section className="flex min-h-screen justify-center gap-10">
+        <LeftSide />
+        <MainSide />
+        <RightSide />
+      </section>
+    </>
   );
 };
 
