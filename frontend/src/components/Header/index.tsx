@@ -4,7 +4,7 @@ import Search from './Search';
 
 const Header = () => {
   return (
-    <header className="flex h-16 flex-row justify-center gap-44 shadow-xl xl:gap-56 2xl:gap-80">
+    <header className="sticky top-0 z-50 flex h-16 w-full flex-row justify-evenly gap-6 bg-white shadow-lg dark:bg-secondary">
       <Logo />
       <Search />
       <Personal />
