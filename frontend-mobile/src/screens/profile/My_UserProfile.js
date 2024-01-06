@@ -10,7 +10,7 @@ const My_UserProfile = ({navigation}) => {
     username: 'user1',
     follower: 1201,
     following: 2101,
-    description: 'I am a developer',
+    description: 'Description in here',
     profile_image: 'https://picsum.photos/500/500',
     posts:[
       {

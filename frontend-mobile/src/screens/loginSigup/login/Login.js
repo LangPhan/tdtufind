@@ -1,17 +1,16 @@
-import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Button, Image } from "react-native";
-import * as WebBrowser from "expo-web-browser";
-import * as Google from "expo-auth-session/providers/google";
-import {
-  GoogleLogin,
-  GoogleOAuthProvider,
-} from "@react-oauth/google";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StyleSheet, Text, View, Image, TextInput, ActivityIndicator} from 'react-native'
+import logo from '../../../../assets/logo.png'
+import React from 'react'
+import { containerFull, hr80, logo1 } from '../../../commonsCss/pagecss'
+import { formHead, formInput, formTextLinkCenter, formTextLinkRight, formbtn } from '../../../commonsCss/formcss'
+import { AntDesign } from '@expo/vector-icons';
 
 
-WebBrowser.maybeCompleteAuthSession();
+const Login = ({navigation}) => {
 
-export default function App() {
+  const handleGoogleLogin = async () => {
+    
+  };
   // const [token, setToken] = useState("");
   // const [userInfo, setUserInfo] = useState(null);
 
@@ -69,93 +68,55 @@ export default function App() {
 
   //   }
   // };
-  const [userInfo, setUserInfo] = useState(null)
-  return (
-    <View style={styles.container}>
-      {!userInfo && (
 
-        <GoogleOAuthProvider
-          clientId="902539468556-admgq4ogf7q1gqdst7rd0ea2e1ab0vd3.apps.googleusercontent.com"
-        >
-          <GoogleLogin
-            width={1000}
-            shape="pill"
-            theme="filled_blue"
-            text="continue_with"
-            locale="vi"
-            onSuccess={(res) => {
-              fetch(
-                "http://localhost:3000/api/v1/auth",
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type":
-                      "application/json",
-                  },
-                  body: JSON.stringify({
-                    credential:
-                      res.credential,
-                  }),
-                }
-              )
-                .then((res) => {
-                  return res.json();
-                })
-                .then((data) => {
-                  setUserInfo(data.data)
-                  console.log(data);
-                  console.log(userInfo);
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
-            }}
-            onError={() => {
-              console.log("ERROR");
-            }}
-          />
-        </GoogleOAuthProvider>
-      )
-      }
-      {/* {!userInfo ? (
-        <Button
-          title="Sign in with Google"
-          // disabled={!request}
-          onPress={() => {
-            promptAsync();
-          }}
+  return (
+    <View style={containerFull}>
+      <Image source={logo} style={logo1} />
+        <Text style={formHead}>Login</Text>
+        <TextInput placeholder="Enter Your Email" style={formInput} />
+        <TextInput placeholder="Enter Your Password" style={formInput}
+            secureTextEntry={true}
         />
-      ) : ( */}
-      <View style={styles.card}>
-        {userInfo?.picture && (
-          <Image source={{ uri: userInfo?.picture }} style={styles.image} />
-        )}
-        <Text style={styles.text}>Email: {userInfo?.email}</Text>
-        <Text style={styles.text}>
-          Verified: {userInfo?.email_verified ? "yes" : "no"}
+        <Text style={formTextLinkRight}
+            onPress={() => navigation.navigate('ForgotPassword_EnterEmail')}
+        >Forgot Password?</Text>
+
+        <Text style={formbtn} onPress={
+            () => navigation.navigate('MainPage')
+        }>
+            Submit
         </Text>
-        <Text style={styles.text}>Name: {userInfo?.name}</Text>
-        {/* <Text style={styles.text}>{JSON.stringify(userInfo, null, 2)}</Text> */}
-      </View>
-      {/* )} */}
-      <Button
-        title="remove local store"
-        onPress={async () => await AsyncStorage.removeItem("@user")}
-      />
+
+
+        <View style={hr80}></View>
+
+
+        <Text style={formTextLinkCenter}>
+            Don't have an account? <Text style={{ color: 'white' }}
+                onPress={() => navigation.navigate('Signup_chooseUsername')}
+            >Signup</Text>
+        </Text>
+
+      <Text style={formbtn} 
+       onPress={() => navigation.navigate('Mainpage')}
+        >
+          <AntDesign name="google" size={24} color="white" /> 
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login by Google
+        </Text>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   card: {
     borderWidth: 1,
@@ -168,3 +129,5 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 });
+
+export default Login
