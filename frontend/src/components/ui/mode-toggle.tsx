@@ -1,4 +1,4 @@
-import { Moon, Sun } from 'lucide-react';
+import { Computer, Moon, Sun } from 'lucide-react';
 
 import { useTheme } from '@/pages/provider/Theme';
 import { Button } from './button';
@@ -21,25 +21,28 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="min-w-[90px] bg-white px-4 py-2 dark:bg-secondary"
+        className="mt-[14px] min-w-[120px] rounded-md bg-white px-4 py-2 shadow-md dark:bg-secondary"
         align="center"
       >
         <DropdownMenuItem
-          className="my-1 w-full cursor-pointer hover:font-semibold hover:text-foreground"
+          className="my-2 flex w-full cursor-pointer items-center gap-2 transition-all hover:font-semibold hover:text-foreground"
           onClick={() => setTheme('light')}
         >
+          <Sun />
           Light
         </DropdownMenuItem>
         <DropdownMenuItem
-          className="my-1 w-full cursor-pointer hover:font-semibold hover:text-foreground"
+          className="my-2 flex w-full cursor-pointer items-center gap-2 transition-all hover:font-semibold hover:text-foreground"
           onClick={() => setTheme('dark')}
         >
+          <Moon />
           Dark
         </DropdownMenuItem>
         <DropdownMenuItem
-          className="my-1 w-full cursor-pointer hover:font-semibold hover:text-foreground"
+          className="my-2 flex w-full cursor-pointer items-center gap-2 transition-all hover:font-semibold hover:text-foreground"
           onClick={() => setTheme('system')}
         >
+          <Computer />
           System
         </DropdownMenuItem>
       </DropdownMenuContent>
