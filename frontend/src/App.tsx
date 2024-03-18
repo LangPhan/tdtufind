@@ -12,6 +12,7 @@ import RequireAuth from './pages/provider/RequireAuth';
 import AdminPage from './pages/(logged-in)/AdminPage';
 import ElementPage from './pages/(logged-in)/ElementPage';
 import PersonPage from './pages/(logged-in)/PersonPage';
+import SearchPage from './pages/(logged-in)/SearchPage';
 
 function App() {
   const router = createBrowserRouter(
@@ -28,6 +29,7 @@ function App() {
         >
           <Route path="/" element={<ElementPage />} />
           <Route path="/person" element={<PersonPage />} />
+          <Route path="/search/:query" element = {<SearchPage/>} />
         </Route>
         <Route
           path="/admin"

@@ -1,8 +1,10 @@
 import { useRef } from 'react';
-import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 
 const Search = () => {
   const keywordRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate()
   return (
     <div className="flex w-2/5 min-w-[150px] max-w-[600px] items-center gap-2">
       <input
@@ -12,7 +14,7 @@ const Search = () => {
         onKeyDown={(e) => {
           if (e.code === 'Enter') {
             if (keywordRef.current?.value) {
-              toast.success(keywordRef.current?.value);
+              navigate(`/search/${keywordRef.current.value}`)
               keywordRef.current.value = '';
             }
           }

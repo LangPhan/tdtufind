@@ -1,11 +1,11 @@
-import { useNavigate } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import useStore from '../../../hooks/useStore';
 import { LogoutIcon, SettingIcon, UserIcon } from '../../ui/icons';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { AvatarImage } from '@radix-ui/react-avatar';
 const Profile = () => {
   const { user, logout } = useStore();
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
   return (
     <div className="group relative flex h-full min-w-[150px] items-center gap-2 hover:cursor-pointer">
       <Avatar>

@@ -1,16 +1,15 @@
 import PostCard from '@/components/Sections/PostCard';
+import useStore from '@/hooks/useStore';
 
 const PersonPage = () => {
+  const {personPosts} = useStore((state) => state)
   return (
     <>
-      <PostCard />
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi illo id,
-      tenetur quas dolor asperiores eius ex inventore! Hic nulla voluptas quae
-      repellendus! Exercitationem neque laudantium hic porro, modi commodi?
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum
-      libero sed sapiente corrupti nulla, quaerat inventore sint neque, eos
-      optio dolorem adipisci totam laboriosam ipsa? Eum obcaecati odio saepe
-      beatae!
+     <>
+      {personPosts && personPosts.map((post:any) => {
+       return <PostCard key={post._id} author= {post.author} content={post.content} createdAt={post.createdAt} images={post.images} timeLost={post.timeLost} placement= {post.placement} type={post.type} />
+      })}
+    </>
     </>
   );
 };

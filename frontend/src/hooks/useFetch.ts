@@ -13,6 +13,7 @@ interface UseFetchResults<T> {
 }
 
 const useFetch = <T>(url: RequestInfo, options?: UseFetchOptions): UseFetchResults<T> => {
+  
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null)

@@ -6,6 +6,7 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { PlusIcon } from 'lucide-react';
+import Form from './Forms';
 
 const PostDialog = () => {
   return (
@@ -16,10 +17,13 @@ const PostDialog = () => {
       >
         <PlusIcon className="text-white" />
       </DialogTrigger>
-      <DialogContent className="custom-scrollbar max-h-[90%] overflow-y-scroll">
+      <DialogContent className="custom-scrollbar max-h-[90%] min-w-[40%] overflow-y-scroll">
         <DialogHeader>
-          <DialogTitle className="text-center">Bài đăng mới</DialogTitle>
+          <DialogTitle className="text-center text-2xl">
+            Bài đăng mới
+          </DialogTitle>
         </DialogHeader>
+        <Form />
       </DialogContent>
     </Dialog>
   );

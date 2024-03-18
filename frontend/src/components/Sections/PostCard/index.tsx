@@ -13,6 +13,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { convertTimeToDMY, countTimeAgo } from '@/utils/convertTime';
 import {
   Building,
   PackageSearch,
@@ -20,19 +21,32 @@ import {
   Share,
   TimerIcon,
 } from 'lucide-react';
+type Post = {
+  author: {
+    email: string, 
+    fullName: string,
+    _id: string
+  },
+  content: string,
+  createdAt: string,
+  images: string[],
+  placement: string,
+  timeLost: string,
+  type: string
+}
 
-const PostCard = () => {
+const PostCard = ({author, content, createdAt, images, placement, timeLost, type}: Post) => {
   return (
     <Card className="mx-2 my-5 cursor-default">
       <CardHeader>
         <div className="flex flex-row items-center gap-2">
           <Avatar>
             <AvatarImage src="https://lh3.google.com/u/0/ogw/ANLem4bTzCJj4ciirQ34JuG382gBPPlpCfZiTe1hvoXn=s32-c-mo" />
-            <AvatarFallback>TDT</AvatarFallback>
+            <AvatarFallback>{author.fullName}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <span className="font-semibold">First Name Last Name</span>
-            <span className="text-sm italic">Day Month Year</span>
+            <span className="font-semibold">{author.fullName}</span>
+            <span className="text-sm italic">{countTimeAgo(createdAt)}</span>
           </div>
         </div>
       </CardHeader>
@@ -44,7 +58,7 @@ const PostCard = () => {
           <span className="">
             <TimerIcon />
           </span>
-          <span>Lorem</span>
+          <span>{convertTimeToDMY(timeLost)}</span>
         </div>
         <div
           className="bg-main flex w-1/3 flex-row items-center gap-2 rounded-xl px-2 py-4 text-white"
@@ -53,7 +67,7 @@ const PostCard = () => {
           <span className="">
             <PackageSearch />
           </span>
-          <span>Name</span>
+          <span>{type}</span>
         </div>
         <div
           className="bg-main flex w-1/3 flex-row items-center gap-2 rounded-xl px-2 py-4 text-white"
@@ -62,36 +76,30 @@ const PostCard = () => {
           <span className="">
             <Building />
           </span>
-          <span>Name</span>
+          <span>{placement}</span>
         </div>
       </CardContent>
       <CardContent>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores
-        perspiciatis cumque eaque velit, recusandae ut doloribus nihil. Fugiat
-        non temporibus minus assumenda, magnam vero ab ad nisi repudiandae rem
-        quasi!
+        {content}
       </CardContent>
-      <CardContent>
+      {images.length > 0 && <CardContent>
         <Carousel className="">
           <CarouselContent>
-            <CarouselItem>
-              <img
-                src="https://plus.unsplash.com/premium_photo-1682125831761-ba29ea80603a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="image"
-              />
-            </CarouselItem>
-            <CarouselItem className="h-[400px]">
-              <img
-                className="object-scale-down object-center hover:cursor-grab"
-                src="https://images.unsplash.com/photo-1703210466493-994109aec84f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="image2"
-              />
-            </CarouselItem>
+            {images.length > 0 && images.map((image: any) => {
+              return(
+              <CarouselItem key={image}>
+                <img
+                  src={image}
+                  alt="image"
+                />
+              </CarouselItem>
+              )
+            })}
           </CarouselContent>
           <CarouselPrevious className="-left-0" />
           <CarouselNext className="-right-0" />
         </Carousel>
-      </CardContent>
+      </CardContent>}
       <CardFooter className="flex justify-around">
         <Button className="inline-flex gap-2 bg-blue-600 text-white hover:bg-blue-700">
           Chia sẻ

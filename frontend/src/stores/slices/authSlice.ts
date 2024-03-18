@@ -26,6 +26,7 @@ const authSlice: StateCreator<AuthInterface> = (set, get) => ({
       navigate('/');
     } catch (error) {
       console.log(error);
+      toast.error('500 - Some thing went wrong!')
     }
   },
   checkToken: async (token, navigate) => {
