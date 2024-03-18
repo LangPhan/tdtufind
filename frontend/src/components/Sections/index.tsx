@@ -1,3 +1,4 @@
+import Message from '../Messages/Message';
 import LeftSide from './LeftSide';
 import MainSide from './MainSide';
 import Navigation from './Navigation';
@@ -11,6 +12,7 @@ const Section = () => {
         <LeftSide />
         <MainSide />
         <RightSide />
+        <Message/>
       </section>
     </>
   );

@@ -1,8 +1,6 @@
 import moment from "moment";
 import 'moment/locale/vi';
 
-moment.locale();
-
 const convertTimeToUTC = (time: string) => {
   const date = new Date(time);
   const utcDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
