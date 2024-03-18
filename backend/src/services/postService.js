@@ -41,20 +41,21 @@ const getManyPostFilterAndSort = async (query, sortBy = 'createdAt', page, pageS
   } catch (error) {
     throw new Error(error)
   }
-
 }
 
 const createNewPost = async (newPost) => {
   const dateTimeString = newPost.timeLost.trim()
   const dateTime = new Date(dateTimeString)
   try {
+    const isSomething = newPost.isSomething === "true" ? true : false
     const post = await Post.create({
       author: newPost.author,
       content: newPost.content,
       timeLost: dateTime,
       images: newPost.images,
       placement: newPost.placement,
-      type: newPost.type
+      type: newPost.type,
+      isSomething: isSomething
     })
     return post
   } catch (error) {
