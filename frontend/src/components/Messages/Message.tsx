@@ -16,7 +16,7 @@ export default function Message() {
 
   const {conversationId, setConversationId}  = useStore((state) => state) 
   return(
-  <div className="w-72 h-fit bg-background rounded-t-2xl fixed bottom-0 right-[10%]">
+  <div className="text-white w-72 h-fit bg-background rounded-t-2xl fixed bottom-0 right-[10%]">
     {conversationId.length > 0 && <Collapsible defaultOpen = {true} >
       <CollapsibleTrigger asChild>
         <div className="w-full h-10 rounded-t-2xl bg-main flex justify-between items-center px-2">
@@ -34,9 +34,9 @@ export default function Message() {
           <TextMessage avatar="https://github.com/shadcn.png" content="abc" isOwnText = {false}/>
         </ScrollArea>
         <div className="relative">
-          <Textarea className="rounded-t-none resize-none pr-10 min-h-0 custom-scrollbar" placeholder="Nhập tin nhắn" rows={2} cols={2}  />
+          <Textarea className="text-black dark:text-white rounded-t-none resize-none pr-10 min-h-0 custom-scrollbar" placeholder="Nhập tin nhắn" rows={2} cols={2}  />
           <button className="absolute bottom-0 right-0 -translate-y-[17px] -translate-x-[8px]">
-            <SendHorizonal/>
+            <SendHorizonal className="text-main"/>
           </button>
         </div>
       </CollapsibleContent>

@@ -76,6 +76,7 @@
 @layer base {
   * {
     @apply border-border;
+    font-family: 'Nunito'
   }
   body {
     @apply bg-background text-foreground;

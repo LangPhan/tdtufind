@@ -26,7 +26,7 @@ const Personal = () => {
       </TooltipProvider> 
       <Popover open = {isOpenConversation} >
         <PopoverTrigger onClick={() => setIsOpenConversation()}>
-          <MessageIcon className="h-6 w-6 hover:cursor-pointer"/>
+          <MessageIcon className={`h-6 w-6 hover:cursor-pointer ${isOpenConversation && "text-main"}`}/>
         </PopoverTrigger>
         <PopoverContent onBlur={() => setIsOpenConversation()}>
           <Conversation/> 
