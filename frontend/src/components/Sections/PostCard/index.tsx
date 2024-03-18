@@ -14,6 +14,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { convertTimeToDMY, countTimeAgo } from '@/utils/convertTime';
+import { url } from 'inspector';
 import {
   Building,
   PackageSearch,
@@ -25,7 +26,8 @@ type Post = {
   author: {
     email: string, 
     fullName: string,
-    _id: string
+    _id: string,
+    avatar: string
   },
   content: string,
   createdAt: string,
@@ -41,7 +43,7 @@ const PostCard = ({author, content, createdAt, images, placement, timeLost, type
       <CardHeader>
         <div className="flex flex-row items-center gap-2">
           <Avatar>
-            <AvatarImage src="https://lh3.google.com/u/0/ogw/ANLem4bTzCJj4ciirQ34JuG382gBPPlpCfZiTe1hvoXn=s32-c-mo" />
+            <AvatarImage src={author.avatar} />
             <AvatarFallback>{author.fullName}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
@@ -84,14 +86,17 @@ const PostCard = ({author, content, createdAt, images, placement, timeLost, type
       </CardContent>
       {images.length > 0 && <CardContent>
         <Carousel className="">
-          <CarouselContent>
+          <CarouselContent className='w-full h-96'>
             {images.length > 0 && images.map((image: any) => {
               return(
-              <CarouselItem key={image}>
-                <img
+              <CarouselItem key={image} >
+                <div className='w-full h-full bg-center bg-contain bg-no-repeat' style={{backgroundImage: `url(${image})`}}>
+                </div>
+                {/* <img
+                  className='max-h-full'
                   src={image}
                   alt="image"
-                />
+                /> */}
               </CarouselItem>
               )
             })}
