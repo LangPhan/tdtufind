@@ -25,6 +25,7 @@ const postSlice: StateCreator<PostInterface> = (set, get) => ({
         document.dispatchEvent(new KeyboardEvent('keydown', {
           key: "Escape"
         }))
+        get().fetchPosts()
         toast.success("Đăng bài viết thành công")
       } else {
         toast.error(res?.data.message)
