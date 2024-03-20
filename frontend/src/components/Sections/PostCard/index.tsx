@@ -13,9 +13,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import useStore from '@/hooks/useStore';
 import { convertTimeToDMY, countTimeAgo } from '@/utils/convertTime';
-
+import { url } from 'inspector';
 import {
   Building,
   PackageSearch,
@@ -39,7 +38,6 @@ type Post = {
 }
 
 const PostCard = ({author, content, createdAt, images, placement, timeLost, type}: Post) => {
-  const {setNewConversation, user} = useStore((state) => state)
   return (
     <Card className="mx-2 my-5 cursor-default">
       <CardHeader>
@@ -112,9 +110,7 @@ const PostCard = ({author, content, createdAt, images, placement, timeLost, type
           Chia sẻ
           <Share className="h-5 w-5" />
         </Button>
-        <Button className="inline-flex gap-2 bg-green-600 text-white hover:bg-green-700"
-        onClick={() => setNewConversation({id: author._id, name: author.fullName, avatar: author.avatar}, user?.id || "")}
-        >
+        <Button className="inline-flex gap-2 bg-green-600 text-white hover:bg-green-700">
           Nhắn tin <SendHorizonal className="h-5 w-5" />
         </Button>
       </CardFooter>
