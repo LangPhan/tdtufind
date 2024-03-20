@@ -7,7 +7,7 @@ type Props = {
 }
 export default function TextMessage({avatar, content, isOwnText}: Props) {
  return(
-  <div className={`w-full flex items-end gap-2 ${isOwnText ? "justify-end" : ""}`}>
+  <div className={`w-full flex items-end my-2 gap-2 ${isOwnText ? "justify-end" : ""}`}>
     {!isOwnText && <Avatar>
       <AvatarImage src={avatar} />
     </Avatar>}
