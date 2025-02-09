@@ -14,7 +14,6 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { convertTimeToDMY, countTimeAgo } from '@/utils/convertTime';
-import { url } from 'inspector';
 import {
   Building,
   PackageSearch,
@@ -24,7 +23,7 @@ import {
 } from 'lucide-react';
 type Post = {
   author: {
-    email: string, 
+    email: string,
     fullName: string,
     _id: string,
     avatar: string
@@ -37,7 +36,7 @@ type Post = {
   type: string
 }
 
-const PostCard = ({author, content, createdAt, images, placement, timeLost, type}: Post) => {
+const PostCard = ({ author, content, createdAt, images, placement, timeLost, type }: Post) => {
   return (
     <Card className="mx-2 my-5 cursor-default">
       <CardHeader>
@@ -88,21 +87,21 @@ const PostCard = ({author, content, createdAt, images, placement, timeLost, type
         <Carousel className="">
           <CarouselContent className='w-full h-96'>
             {images.length > 0 && images.map((image: any) => {
-              return(
-              <CarouselItem key={image} >
-                <div className='w-full h-full bg-center bg-contain bg-no-repeat' style={{backgroundImage: `url(${image})`}}>
-                </div>
-                {/* <img
-                  className='max-h-full'
-                  src={image}
-                  alt="image"
-                /> */}
-              </CarouselItem>
+              return (
+                <CarouselItem key={image} >
+                  <div className='w-full h-full bg-center bg-contain bg-no-repeat' style={{ backgroundImage: `url(${image})` }}>
+                  </div>
+                </CarouselItem>
               )
             })}
           </CarouselContent>
-          <CarouselPrevious className="-left-0" />
-          <CarouselNext className="-right-0" />
+          {
+            images.length > 1 &&
+            <>
+              <CarouselPrevious className="-left-0" />
+              <CarouselNext className="right-[2%]" />
+            </>
+          }
         </Carousel>
       </CardContent>}
       <CardFooter className="flex justify-around">

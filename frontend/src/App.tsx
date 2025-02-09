@@ -4,15 +4,15 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
-import ErrorPage from './pages/ErrorPage';
-import HomePage from './pages/(logged-in)/HomePage';
-import RootPage from './pages/RootPage';
-import LoginPage from './pages/LoginPage';
-import RequireAuth from './pages/provider/RequireAuth';
 import AdminPage from './pages/(logged-in)/AdminPage';
 import ElementPage from './pages/(logged-in)/ElementPage';
+import HomePage from './pages/(logged-in)/HomePage';
 import PersonPage from './pages/(logged-in)/PersonPage';
 import SearchPage from './pages/(logged-in)/SearchPage';
+import ErrorPage from './pages/ErrorPage';
+import LoginPage from './pages/LoginPage';
+import RequireAuth from './pages/provider/RequireAuth';
+import RootPage from './pages/RootPage';
 
 function App() {
   const router = createBrowserRouter(
@@ -29,7 +29,7 @@ function App() {
         >
           <Route path="/" element={<ElementPage />} />
           <Route path="/person" element={<PersonPage />} />
-          <Route path="/search/:query" element = {<SearchPage/>} />
+          <Route path="/search/:query" element={<SearchPage />} />
         </Route>
         <Route
           path="/admin"
