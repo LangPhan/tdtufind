@@ -6,7 +6,7 @@ export interface messageInterface {
   messageList: [],
   setIsOpenConversation: () => void,
   setConversationId: (id: string, name: string, avatar:string) => void,
-  setConversationList: () => void,
+  setConversationList: (id:string) => void,
   setMessageList: () => void,
   getLatestMessage: (id: string) => void,
   setNewConversation: (firstMember: {id: string, name: string, avatar: string}, secondMember:string) => void

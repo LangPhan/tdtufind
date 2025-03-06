@@ -1,6 +1,6 @@
+import { toast } from "react-toastify";
 import { StateCreator } from "zustand";
 import { AuthInterface } from "../types/authInterface";
-import { toast } from "react-toastify";
 
 const authSlice: StateCreator<AuthInterface> = (set, get) => ({
   isAuth: false,

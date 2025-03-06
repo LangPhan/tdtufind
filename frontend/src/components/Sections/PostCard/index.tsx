@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 type Post = {
   author: {
-    email: string, 
+    email: string,
     fullName: string,
     _id: string,
     avatar: string
@@ -38,8 +38,8 @@ type Post = {
   type: string
 }
 
-const PostCard = ({author, content, createdAt, images, placement, timeLost, type}: Post) => {
-  const {setNewConversation, user} = useStore((state) => state)
+const PostCard = ({ author, content, createdAt, images, placement, timeLost, type }: Post) => {
+  const { setNewConversation, user } = useStore((state) => state)
   return (
     <Card className="mx-2 my-5 cursor-default">
       <CardHeader>
@@ -90,16 +90,16 @@ const PostCard = ({author, content, createdAt, images, placement, timeLost, type
         <Carousel className="">
           <CarouselContent className='w-full h-96'>
             {images.length > 0 && images.map((image: any) => {
-              return(
-              <CarouselItem key={image} >
-                <div className='w-full h-full bg-center bg-contain bg-no-repeat' style={{backgroundImage: `url(${image})`}}>
-                </div>
-                {/* <img
+              return (
+                <CarouselItem key={image} >
+                  <div className='w-full h-full bg-center bg-contain bg-no-repeat' style={{ backgroundImage: `url(${image})` }}>
+                  </div>
+                  {/* <img
                   className='max-h-full'
                   src={image}
                   alt="image"
                 /> */}
-              </CarouselItem>
+                </CarouselItem>
               )
             })}
           </CarouselContent>
@@ -113,7 +113,11 @@ const PostCard = ({author, content, createdAt, images, placement, timeLost, type
           <Share className="h-5 w-5" />
         </Button>
         <Button className="inline-flex gap-2 bg-green-600 text-white hover:bg-green-700"
-        onClick={() => setNewConversation({id: author._id, name: author.fullName, avatar: author.avatar}, user?.id || "")}
+          onClick={() => {
+            setNewConversation({ id: author._id, name: author.fullName, avatar: author.avatar }, user?.id || "")
+            console.log(user?.id)
+          }
+          }
         >
           Nhắn tin <SendHorizonal className="h-5 w-5" />
         </Button>

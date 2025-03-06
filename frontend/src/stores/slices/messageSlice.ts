@@ -1,6 +1,6 @@
+import instance from "@/utils/axiosConfig";
 import { StateCreator } from "zustand";
 import { messageInterface } from "../types/messageInterface";
-import instance from "@/utils/axiosConfig";
 
 
 //const conversationsRes = await instance.get('conversations')
@@ -20,8 +20,8 @@ const messageSlice: StateCreator<messageInterface> = (set, get) => ({
       set({messageList: res.data.data.messages})
     }
   },
-  setConversationList: async () => { 
-    const res = await instance.get('conversations')
+  setConversationList: async (userId:string) => { 
+    const res = await instance.get('conversations/user/'+userId)
     set({conversationList: res.data.data.conversations})
   },
   setMessageList: async () => {
@@ -40,24 +40,23 @@ const messageSlice: StateCreator<messageInterface> = (set, get) => ({
       avatar: ''
     }
     const messagedSet = new Set<string>()
-    await get().setConversationList()
-    get().conversationList.forEach((conversation:any) => 
-      conversation?.members.forEach((member:any) => {
-        if(member._id === firstMember.id) {
-          firstMemberInfo = {...firstMemberInfo, id: conversation._id, avatar: member.avatar, name: member.fullName}
-        }  
-        messagedSet.add(member._id)
-      })) 
-      console.log(messagedSet);
+    try {
+      await get().setConversationList(secondMember)
+      get().conversationList.forEach((conversation:any) => 
+        conversation?.members.forEach((member:any) => {
+          if(member._id === firstMember.id) {
+            firstMemberInfo = {...firstMemberInfo, id: conversation._id, avatar: member.avatar, name: member.fullName}
+          }  
+          messagedSet.add(member._id)
+        })) 
+        console.log(messagedSet);
+    } catch (error) {
+      console.log(error)  
+    }
       
     if(messagedSet.has(firstMember.id)){
       get().setConversationId(firstMemberInfo.id, firstMemberInfo.name, firstMemberInfo.avatar)
-    }else{
-      const res = await instance.post('conversations',JSON.stringify(
-        {members: [firstMember.id, secondMember]},
-      ),
-      {
-        headers: {
+    }else{ const res = await instance.post('conversations',JSON.stringify( {members: [firstMember.id, secondMember]},), { headers: {
            "Content-Type": "application/json"
       }})
       const newConversationId = res.data.data._id
