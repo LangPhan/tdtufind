@@ -14,7 +14,7 @@ import { io } from 'socket.io-client'
 import { Textarea } from "../ui/textarea"
 import TextMessage from "./ui/TextMessage"
 
-const socket = io('http://localhost:5001');
+const socket = io('https://tdtufind-server-3cd17489ad13.herokuapp.com');
 
 export default function Message() {
   const { conversation, setConversationId, messageList, getLatestMessage, user } = useStore((state) => state)
@@ -69,7 +69,8 @@ export default function Message() {
           }
         })
         if (res.status === 201) {
-          socket.emit('chat message', { message: res.data.data._id, conversationId: conversation.id })
+          const newMessage = res.data.data;
+          socket.emit('chat message', { message: newMessage, conversationId: conversation.id })
         }
       } catch (error) {
         console.log(error);
@@ -95,12 +96,20 @@ export default function Message() {
         <CollapsibleContent>
           <ScrollArea className="h-[320px] max-w-full rounded-t-md border p-4">
             <div className="w-full h-full flex flex-col-reverse">
-              {messageList && messageList.length > 0 && messageList.map((message: any) => {
+              {messageList && messageList.length > 0 && messageList.map((message: any, index) => {
+                //@ts-ignore
+
+                const isSameOwner = messageList[index + 1]?.sender === message.sender;
                 return (
-                  <TextMessage key={message._id} avatar={conversation.avatar} content={message.content} isOwnText={message.sender === user?.id} />
-                )
-              }
-              )}
+                  <TextMessage
+                    key={message._id}
+                    avatar={conversation.avatar}
+                    content={message.content}
+                    isOwnText={message.sender === user?.id}
+                    isSameOwner={isSameOwner}
+                  />
+                );
+              })}
               {
                 messageList.length === 0 && (
                   <div className="w-full h-full flex flex-col items-center text-slate-400">

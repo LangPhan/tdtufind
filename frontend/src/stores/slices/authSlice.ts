@@ -1,3 +1,4 @@
+import { redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import { StateCreator } from "zustand";
 import { AuthInterface } from "../types/authInterface";
@@ -23,7 +24,7 @@ const authSlice: StateCreator<AuthInterface> = (set, get) => ({
       localStorage.setItem("token", info.data.token);
       get().checkToken(info.data.token, navigate)
       toast.success("Đăng nhập thành công");
-      navigate('/');
+      redirect("/")
     } catch (error) {
       console.log(error);
       toast.error('500 - Some thing went wrong!')

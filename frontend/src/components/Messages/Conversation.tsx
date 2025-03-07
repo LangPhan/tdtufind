@@ -4,9 +4,10 @@ import { useEffect, useRef } from 'react';
 import { ScrollArea } from '../ui/scroll-area';
 import { Separator } from '../ui/separator';
 import ConversationItem from './ConversationItem';
+import ConversationItemSkeleton from './ui/ConversationItemSkeleton';
 
 export default function Conversation() {
-  const { conversationList, setConversationList, user, setNewConversation } = useStore((state) => state);
+  const { conversationList, setConversationList, user, isLoadingConversation } = useStore((state) => state);
   const isFirstMount = useRef(true);
 
   useEffect(() => {
@@ -39,7 +40,14 @@ export default function Conversation() {
             );
           })
         }
-        {conversationList.length === 0 && (
+        {isLoadingConversation && (
+          <>
+            <ConversationItemSkeleton />
+            <ConversationItemSkeleton />
+            <ConversationItemSkeleton />
+          </>
+        )}
+        {conversationList.length === 0 && !isLoadingConversation && (
           <div className="w-full h-full flex flex-col items-center text-slate-400">
             <Inbox className="w-24 h-24" />
             <span>Chưa có tin nhắn nào</span>
