@@ -103,8 +103,12 @@ const PostCard = ({ author, content, createdAt, images, placement, timeLost, typ
               )
             })}
           </CarouselContent>
-          <CarouselPrevious className="-left-0" />
-          <CarouselNext className="-right-0" />
+          {images.length > 1 && (
+            <>
+              <CarouselPrevious className="-left-0" />
+              <CarouselNext className="right-[14px]" />
+            </>
+          )}
         </Carousel>
       </CardContent>}
       <CardFooter className="flex justify-around">
