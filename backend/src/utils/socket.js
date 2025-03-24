@@ -9,7 +9,7 @@ const initSocket = (server) => {
     }
   });
 
-  io.listen(5001)
+  io.listen(43969)
 
   io.on('connection', (socket) => {
     const clientId = socket.id;
