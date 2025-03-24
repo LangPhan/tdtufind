@@ -23,6 +23,7 @@ import {
   Share,
   TimerIcon,
 } from 'lucide-react';
+
 type Post = {
   author: {
     email: string,
@@ -41,7 +42,7 @@ type Post = {
 const PostCard = ({ author, content, createdAt, images, placement, timeLost, type }: Post) => {
   const { setNewConversation, user } = useStore((state) => state)
   return (
-    <Card className="mx-2 my-5 cursor-default">
+    <Card className="mx-2 my-5 cursor-default select-none">
       <CardHeader>
         <div className="flex flex-row items-center gap-2">
           <Avatar>
@@ -83,7 +84,7 @@ const PostCard = ({ author, content, createdAt, images, placement, timeLost, typ
           <span>{placement}</span>
         </div>
       </CardContent>
-      <CardContent>
+      <CardContent className='select-text'>
         {content}
       </CardContent>
       {images.length > 0 && <CardContent>

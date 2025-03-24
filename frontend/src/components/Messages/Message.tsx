@@ -14,7 +14,7 @@ import { io } from 'socket.io-client'
 import { Textarea } from "../ui/textarea"
 import TextMessage from "./ui/TextMessage"
 
-const socket = io('https://tdtufind-server-3cd17489ad13.herokuapp.com');
+const socket = io('https://tdtufind-server-3cd17489ad13.herokuapp.com/');
 
 export default function Message() {
   const { conversation, setConversationId, messageList, getLatestMessage, user } = useStore((state) => state)

@@ -1,17 +1,21 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ThemeProvider } from './provider/Theme';
-
 export default function RootPage() {
+  const queryClient = new QueryClient()
   return (
     <>
-      <ThemeProvider defaultTheme="light">
-        <div className="hidden md:block">
-          <Outlet />
-        </div>
-        <div className="md:hidden">Tải phầm mềm đê</div>
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider defaultTheme="light">
+          <div className="hidden md:block min-h-screen">
+            <Outlet />
+          </div>
+          <div className="md:hidden">Tải phầm mềm đê</div>
+        </ThemeProvider>
+
+      </QueryClientProvider>
       <ToastContainer
         position="bottom-right"
         autoClose={3500}

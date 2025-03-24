@@ -1,6 +1,6 @@
 import useStore from '@/hooks/useStore';
 import { Inbox, MessageSquare } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { ScrollArea } from '../ui/scroll-area';
 import { Separator } from '../ui/separator';
 import ConversationItem from './ConversationItem';
@@ -8,12 +8,11 @@ import ConversationItemSkeleton from './ui/ConversationItemSkeleton';
 
 export default function Conversation() {
   const { conversationList, setConversationList, user, isLoadingConversation } = useStore((state) => state);
-  const isFirstMount = useRef(true);
 
   useEffect(() => {
-    if (isFirstMount.current && user?.id) {
+    if (user?.id) {
+
       setConversationList(user.id);
-      isFirstMount.current = false;
     }
   }, [user?.id, setConversationList]);
 

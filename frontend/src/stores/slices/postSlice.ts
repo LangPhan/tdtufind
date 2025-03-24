@@ -1,11 +1,12 @@
-import { StateCreator } from "zustand";
-import { PostInterface } from "../types/PostInterface";
 import instance from "@/utils/axiosConfig";
 import { toast } from "react-toastify";
+import { StateCreator } from "zustand";
+import { PostInterface } from "../types/PostInterface";
 
 
 
 const postSlice: StateCreator<PostInterface> = (set, get) => ({
+  isLoadingPost: false,
   elementPosts: [],
   personPosts : [],
   searchPosts: [],
@@ -15,8 +16,10 @@ const postSlice: StateCreator<PostInterface> = (set, get) => ({
     set({personPosts: res.data.data.filter((post:any) => post.isSomething ===false)})
   },
   queryPosts: async (query) => {
+    set({isLoadingPost: true})  
     const res =  await instance.get(`posts?query=${query}`)
     set({searchPosts: res.data.data})
+    set({isLoadingPost: false})
   },
   createNewPost: async (newPost) => {
     try {

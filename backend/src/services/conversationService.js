@@ -33,6 +33,11 @@ const getConversationByUser = async (userId, page, pageSize) => {
           path: 'sender',
           select: 'fullName avatar'
         }
+      }
+      )
+      .populate({
+        path: 'members',
+        select: 'fullName avatar'
       })
     const totalConversations = await Conversation.countDocuments({ members: userId })
     return { conversations, totalConversations }
