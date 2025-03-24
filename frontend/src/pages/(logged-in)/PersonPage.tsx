@@ -1,9 +1,9 @@
 import PostCard from '@/components/Sections/PostCard';
 import CardSkeleton from '@/components/Sections/PostCard/CardSkeleton';
-import { fetchPosts } from './ElementPage';
+import { useGetPosts } from '@/hooks/api/usePostQuery';
 
 const PersonPage = () => {
-  const { personPosts, isLoading } = fetchPosts()
+  const { personPosts, isLoading } = useGetPosts()
   return (
     <>
       {

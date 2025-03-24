@@ -22,10 +22,12 @@ const messageSlice: StateCreator<messageInterface> = (set, get) => ({
     }
   },
   setConversationList: async (userId:string) => { 
-    set({isLoadingConversation: true})
-    const res = await instance.get('conversations/user/'+userId)
-    set({conversationList: res.data.data.conversations})
-    set({isLoadingConversation: false})
+    if(get().conversationList.length === 0 ){
+      set({isLoadingConversation: true})
+      const res = await instance.get('conversations/user/'+userId)
+      set({conversationList: res.data.data.conversations})
+      set({isLoadingConversation: false})   
+    }
   },
   setMessageList: async () => {
     const res = await instance.get('messages/conversation/'+ get().conversation.id)

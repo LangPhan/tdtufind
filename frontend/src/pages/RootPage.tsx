@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,7 +15,7 @@ export default function RootPage() {
           </div>
           <div className="md:hidden">Tải phầm mềm đê</div>
         </ThemeProvider>
-
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
       <ToastContainer
         position="bottom-right"
