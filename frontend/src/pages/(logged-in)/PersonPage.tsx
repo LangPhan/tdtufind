@@ -1,15 +1,17 @@
 import PostCard from '@/components/Sections/PostCard';
-import useStore from '@/hooks/useStore';
+import CardSkeleton from '@/components/Sections/PostCard/CardSkeleton';
+import { useGetPosts } from '@/hooks/api/usePostQuery';
 
 const PersonPage = () => {
-  const {personPosts} = useStore((state) => state)
+  const { personPosts, isLoading } = useGetPosts()
   return (
     <>
-     <>
-      {personPosts && personPosts.map((post:any) => {
-       return <PostCard key={post._id} author= {post.author} content={post.content} createdAt={post.createdAt} images={post.images} timeLost={post.timeLost} placement= {post.placement} type={post.type} />
-      })}
-    </>
+      {
+        isLoading ? <CardSkeleton /> :
+          (personPosts && personPosts.map((post: any) => {
+            return <PostCard key={post._id} author={post.author} content={post.content} createdAt={post.createdAt} images={post.images} timeLost={post.timeLost} placement={post.placement} type={post.type} />
+          }))
+      }
     </>
   );
 };

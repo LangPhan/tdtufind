@@ -10,6 +10,7 @@ type Post  = {
 }
 
 export interface PostInterface {
+  isLoadingPost: boolean
   elementPosts: Post[],
   personPosts: Post[],
   searchPosts: Post[],

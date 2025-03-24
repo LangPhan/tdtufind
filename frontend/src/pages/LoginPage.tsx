@@ -2,12 +2,12 @@ import {
   GoogleLogin,
   GoogleOAuthProvider,
 } from "@react-oauth/google";
-import Logo from "../assets/logo.svg";
-import useStore from "../hooks/useStore";
 import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
+import Logo from "../assets/logo.svg";
+import useStore from "../hooks/useStore";
 
 export default function LoginPage() {
   const { login } = useStore(
@@ -39,8 +39,9 @@ export default function LoginPage() {
           theme="filled_blue"
           text="continue_with"
           locale="vi"
-          onSuccess={async (res) =>
+          onSuccess={async (res) => {
             await login(res, navigate)
+          }
           }
           onError={() => {
             console.log("ERROR");
