@@ -33,7 +33,7 @@ const messageSlice: StateCreator<messageInterface> = (set, get) => ({
     const res = await instance.get('messages/conversation/'+ get().conversation.id)
     set({messageList: res.data.data.messages})
   },
-  getLatestMessage: async (id: string) => {
+  getLatestMessage: async () => {
     // await instance.get('messages/' + id)
     get().setMessageList();
   },
