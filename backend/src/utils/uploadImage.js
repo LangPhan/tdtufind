@@ -1,6 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
-import fs from 'fs';
 import util from 'util';
+import fs from 'fs'
 import { logger } from './logger.js';
 
 const unlinkAsync = util.promisify(fs.unlink);
@@ -12,7 +12,6 @@ const configCloud = () => {
       api_key: process.env.CLOUD_KEY,
       api_secret: process.env.CLOUD_SECRET
     });
-    logger.info("Connect cloud successfully")
   } catch (error) {
     logger.error("Error when connecting cloud. " + error)
   }
@@ -39,4 +38,4 @@ const uploadImagesToCloud = async (files) => {
   }
 }
 
-export { configCloud, uploadImagesToCloud };
+export { configCloud, uploadImagesToCloud }

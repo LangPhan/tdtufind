@@ -8,7 +8,7 @@ type Props = {
   lastMessage: string
 }
 
-export default function ConversationItem({ conversationId, avatar, name, lastMessage, lastSender }: Props) {
+export default function ConversationItem({ conversationId, avatar, name, lastMessage }: Props) {
   const { setConversationId, user } = useStore((state) => state)
 
   return (

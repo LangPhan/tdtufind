@@ -21,7 +21,7 @@ import {
   Share,
   TimerIcon,
 } from 'lucide-react';
-import { useStore, useStore } from 'zustand';
+import { useStore } from 'zustand';
 
 type Post = {
   author: {

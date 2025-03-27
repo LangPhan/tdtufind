@@ -1,10 +1,9 @@
 import useStore from '@/hooks/useStore';
-import { Inbox, MessageSquare } from 'lucide-react';
+import { MessageSquare } from 'lucide-react';
 import { useEffect } from 'react';
 import { ScrollArea } from '../ui/scroll-area';
 import { Separator } from '../ui/separator';
 import ConversationItem from './ConversationItem';
-import ConversationItemSkeleton from './ui/ConversationItemSkeleton';
 
 export default function Conversation() {
   const { conversationList, setConversationList, user, isLoadingConversation } = useStore((state) => state);
@@ -24,35 +23,9 @@ export default function Conversation() {
           <span className='font-bold text-xl'>Cuộc trò chuyện</span>
         </div>
         <Separator />
-        {conversationList.length > 0 &&
-          conversationList.map((conversation: any) => {
-            const opt = conversation.members.filter((member: any) => member._id !== user?.id)[0];
-            return (
-              <ConversationItem
-                key={conversation._id}
-                avatar={opt?.avatar}
-                conversationId={conversation._id}
-                lastMessage={conversation?.messageLatest?.content}
-                name={opt?.fullName}
-                lastSender={conversation?.messageLatest?.sender._id}
-              />
-            );
-          })
-        }
-        {isLoadingConversation && (
-          <>
-            <ConversationItemSkeleton />
-            <ConversationItemSkeleton />
-            <ConversationItemSkeleton />
-          </>
-        )}
-        {conversationList.length === 0 && !isLoadingConversation && (
-          <div className="w-full h-full flex flex-col items-center text-slate-400">
-            <Inbox className="w-24 h-24" />
-            <span>Chưa có tin nhắn nào</span>
-          </div>
-        )}
+        <ConversationItem key={"abc"} avatar='https://github.com/shadcn.png' conversationId='abc' lastMessage='abc fasdfklajsfkl afldkasklfjalksfkj kjlfkdadslkfj alsdfjlk ' name='AbcDeC' />
+        <ConversationItem key={"def"} avatar='https://github.com/shadcn.png' conversationId='def' lastMessage='yay' name='DEF' />
       </div>
     </ScrollArea>
-  );
-}
+  )
+};

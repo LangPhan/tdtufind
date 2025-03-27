@@ -1,5 +1,5 @@
 
-import Post from "../models/postModel.js";
+import Post from "../models/postModel.js"
 import { logger } from "../utils/logger.js";
 
 const getOnePost = async (id) => {
@@ -34,7 +34,7 @@ const getManyPostFilterAndSort = async (query, sortBy = 'createdAt', page, pageS
   try {
     const posts = await Post.find(filter).sort(sort).skip(skip).limit(size).populate({
       path: 'author',
-      select: '_id fullName email avatar'
+      select: '_id fullName email'
     });
     const totalPosts = await Post.countDocuments(filter)
     return { posts, totalPosts }

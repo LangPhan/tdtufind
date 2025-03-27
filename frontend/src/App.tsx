@@ -1,21 +1,20 @@
-import { lazy, Suspense } from 'react';
+import { Suspense } from 'react';
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from 'react-router-dom';
-import Loading from './components/ui/loading';
 import AdminPage from './pages/(logged-in)/AdminPage';
 import ElementPage from './pages/(logged-in)/ElementPage';
 import HomePage from './pages/(logged-in)/HomePage';
 import PersonPage from './pages/(logged-in)/PersonPage';
 import SearchPage from './pages/(logged-in)/SearchPage';
 import ErrorPage from './pages/ErrorPage';
+import LoginPage from './pages/LoginPage';
 import RequireAuth from './pages/provider/RequireAuth';
 import RootPage from './pages/RootPage';
-
-const LoginPage = lazy(() => import('./pages/LoginPage'))
+import Loading from './components/ui/loading';
 
 function App() {
   const router = createBrowserRouter(
@@ -37,7 +36,6 @@ function App() {
         >
           <Route path="/" element={<ElementPage />} />
           <Route path="/person" element={<PersonPage />} />
-          <Route path="/search/:query" element={<SearchPage />} />
           <Route path="/search/:query" element={<SearchPage />} />
         </Route>
         <Route
