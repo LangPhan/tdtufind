@@ -19,8 +19,6 @@ export default function ConversationItem({ conversationId, avatar, name, lastMes
       </Avatar>
       <div className='max-w-[200px]'>
         <p className="text-md font-semibold">{name}</p>
-        <p className='text-md font-light overflow-hidden whitespace-nowrap overflow-ellipsis'>{`${lastSender === user?.id ? "Bạn: " : ""
-          }${lastMessage ? lastMessage : ""}`}</p>
       </div>
     </div>
   )
